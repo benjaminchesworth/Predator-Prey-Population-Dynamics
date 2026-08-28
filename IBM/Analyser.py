@@ -4,13 +4,14 @@ from ExperimentData import ExperimentData, FiledExperimentData
 from AnalysisData import AnalysisData
 
 class Analyser:
-    """A class for analysing data from an experiment.
+    """Analyses data from an experiment.
 
-    On initialisation it will get the experiment data from file and create a point map.
+    Its primary method is `analyse` which returns `AnalysisData`.
 
     Attributes:
-        fd (FiledExperimentData): the experiment data connected to the files it is saved in.
-        d (ExperimentData): the experiment data
+        ed (ExperimentData): Data from an experiment run.
+        rn (int): Number of rows in the experiment grid.
+        cn (int): Number of columns in the experiment grid.
     """
 
     ed: ExperimentData
@@ -45,7 +46,10 @@ class Analyser:
         return(cls(ed = FED.d))
     
     def analyse(self) -> AnalysisData:
-        pm, info = self.point_map()
+
+        pm = None if self.ed.lite else self.point_map()
+        info = self.info()
+
         ad = AnalysisData(
             pmd = pm,
             infod = info,
@@ -54,9 +58,14 @@ class Analyser:
 
         return ad      
     
-    def point_map(self) -> tuple[list, dict]:
+    def point_map(self) -> list:
+
+        if self.ed.lite:
+            raise ValueError('Cannot call point_map method with lite experiment data.')
+
+        assert self.ed.graphd is not None
+
         point_map = []
-        info = {}
 
         num_time_stamps = len(self.ed.graphd.columns)
 
@@ -94,6 +103,11 @@ class Analyser:
                     point_map[t][row][column][0] = round(log_of_preds * pred_scale)
                     point_map[t][row][column][2] = round(log_of_prey * prey_scale)
 
-        info['number of time stamps'] = num_time_stamps
+        return point_map
 
-        return point_map, info
+    def info(self) -> dict:
+
+        info = {}
+        info['number of time stamps'] = self.ed.popd['Time step'][-1]
+
+        return info
