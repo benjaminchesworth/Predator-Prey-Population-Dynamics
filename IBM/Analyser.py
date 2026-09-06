@@ -108,6 +108,6 @@ class Analyser:
     def info(self) -> dict:
 
         info = {}
-        info['number of time stamps'] = self.ed.popd['Time step'][-1]
+        info['number of time stamps'] = int(self.ed.popd['Time step'].iloc[-1])
 
         return info
