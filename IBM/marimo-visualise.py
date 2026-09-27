@@ -265,7 +265,7 @@ def _(got_experiment, mo):
         plot_twax_checkbox = mo. ui. checkbox (label = 'Plot on twin axes', value = False)
 
         mo. output. append (mo. md ('##Plot of population data:') )
-    
+
         mo. output. append (
             mo. vstack ( [
                 add_title_checkbox,
@@ -603,7 +603,7 @@ def _(got_experiment, mo):
     ###Choose time step:
 
     Choose the type of time stamp specificier:"""))
-    
+
         mo. output. append (ts_choice)
     return (ts_choice,)
 
@@ -675,7 +675,6 @@ def _(disp, got_experiment, mo):
 
         mo. output. append (mo. md ('##Notes') )
         mo.output.append(text_area)
-
     return (text_area,)
 
 
@@ -683,7 +682,6 @@ def _(disp, got_experiment, mo):
 def _(got_experiment, mo, submit_notes_button):
     if got_experiment:
         mo.output.append(submit_notes_button)
-
     return
 
 
