@@ -1,12 +1,12 @@
 [project]
-name = "m30000"
+name = "pred-prey-sim"
 version = "0.1.0"
-description = "Add your description here"
+description = "This repository runs and displays the results of an individual-based model of predator-prey dynamics."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "marimo>=0.23.1",
     "matplotlib>=3.10.7",
+    "numpy>=2.3.5",
     "pandas>=2.3.3",
-    "scipy>=1.16.3",
 ]
